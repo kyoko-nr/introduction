@@ -10,6 +10,8 @@ import Cube from '../three/cube'
 export default class BackGround extends Vue {
   /**
    * data.
+   * initialize members on init() method because
+   * members don't work when you initialize members here.
    */
   size = {width: 0, height: 0}
   scene!: THREE.Object3D
@@ -23,6 +25,15 @@ export default class BackGround extends Vue {
    * mounted.
    */
   mounted(): void {
+    this.init()
+    this.animate()
+    window.addEventListener('resize', this.onResize)
+  }
+
+  /**
+   * initialize members.
+   */
+  init(): void {
     this.size.width = window.innerWidth
     this.size.height = window.innerHeight
 
@@ -46,16 +57,29 @@ export default class BackGround extends Vue {
     this.scene.add(this.group)
 
     this.clock = new THREE.Clock()
-
-    this.animate()
   }
 
-  animate() {
+  /**
+   * animate.
+   */
+  animate(): void {
     this.renderer.render(this.scene, this.camera)
     const elapsedTime = this.clock.getElapsedTime()
     this.group.rotation.z = -elapsedTime/3
     this.cube.setRotation(-elapsedTime * 1.8, -elapsedTime * 2, 0)
     window.requestAnimationFrame(this.animate)
+  }
+
+  /**
+   * on window resize.
+   */
+  onResize(): void {
+    this.size.width = window.innerWidth
+    this.size.height = window.innerHeight
+    this.camera.aspect = this.size.width / this.size.height
+    this.camera.updateProjectionMatrix()
+    this.renderer.setSize(this.size.width, this.size.height)
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }
 }
 </script>
