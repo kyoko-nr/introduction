@@ -44,7 +44,7 @@ heroku create <プロジェクト名>
 heroku git:remote --app <プロジェクト名>
 ```
 
-## Heroku デプロイ時の環境依存を修正
+### Heroku デプロイ時の環境依存を修正
 ```
 heroku config:set NODE_ENV=production --app <プロジェクト名>
 ```
