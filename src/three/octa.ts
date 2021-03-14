@@ -20,7 +20,4 @@ export default class Octa extends Shape {
     this.speed = Math.random() * .2 + .1
   }
 
-  reverse(): void {
-    throw new Error('Method not implemented.')
-  }
 }

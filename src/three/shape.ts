@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import gsap from 'gsap'
 
 /**
  * background objects abstract class.
@@ -28,27 +29,11 @@ export default abstract class Shape {
     this.mesh.rotation.y += this.speed / 4
   }
 
-  // /**
-  //  * fall.
-  //  */
-  // fall(): void {
-  //   this.mesh.position.y -= this.speed
-  //   if(this.mesh.position.y < -100) {
-  //     this.mesh.position.y = 100
-  //   }
-  // }
-
-  // /**
-  //  * rotate.
-  //  */
-  // rotate(): void {
-  //   this.mesh.rotation.x += this.speed / 4
-  //   this.mesh.rotation.y += this.speed / 4
-  // }
-
   /**
    * reverse move.
    */
-  abstract reverse(): void
+  public reverse(): void {
+    // TODO
+  }
 
 }

@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
+import { Vue } from 'vue-class-component'
 import * as THREE from 'three'
 import ClockRing from '../three/clockRing'
 import BackShapes from '../three/backShapes'
@@ -29,6 +29,7 @@ export default class BackGround extends Vue {
     this.init()
     this.animate()
     window.addEventListener('resize', this.onResize)
+    window.addEventListener('scroll', this.onScroll)
   }
 
   /**
@@ -80,6 +81,10 @@ export default class BackGround extends Vue {
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(this.size.width, this.size.height)
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  }
+
+  onScroll(): void {
+    console.log(window.scrollY)
   }
 }
 </script>

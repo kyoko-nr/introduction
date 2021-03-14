@@ -29,7 +29,4 @@ export default class Cone extends Shape {
     this.mesh.rotation.z += this.speed / 4
   }
 
-  reverse(): void {
-    throw new Error('Method not implemented.')
-  }
 }

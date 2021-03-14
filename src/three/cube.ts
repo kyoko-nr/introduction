@@ -20,7 +20,4 @@ export default class Cube extends Shape {
     this.speed = Math.random() * .2 + .1
   }
 
-  reverse(): void {
-    throw new Error('Method not implemented.')
-  }
 }
