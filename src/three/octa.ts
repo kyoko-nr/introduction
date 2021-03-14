@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import Shape from './shape'
 
-export default class Cube extends Shape {
+export default class Octa extends Shape {
   /** mesh. */
   mesh: THREE.Object3D
   /** speed of rotate and fall. */
@@ -9,8 +9,8 @@ export default class Cube extends Shape {
 
   constructor() {
     super()
-    const size = Math.random() * 2 + 1
-    const geom = new THREE.BoxBufferGeometry(size, size, size)
+    const radius = Math.random() * 2.5 + 1
+    const geom = new THREE.OctahedronBufferGeometry(radius)
     const mat = new THREE.MeshBasicMaterial({color: 0xCDFAF2, wireframe: true})
     this.mesh = new THREE.Mesh(geom, mat)
     this.mesh.position.set(

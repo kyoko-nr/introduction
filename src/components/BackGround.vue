@@ -5,7 +5,8 @@
 <script lang="ts">
 import { Vue } from 'vue-class-component';
 import * as THREE from 'three'
-import Cube from '../three/cube'
+import ClockRing from '../three/clockRing'
+import BackShapes from '../three/backShapes'
 
 export default class BackGround extends Vue {
   /**
@@ -14,12 +15,12 @@ export default class BackGround extends Vue {
    * members don't work when you initialize members here.
    */
   size = {width: 0, height: 0}
-  scene!: THREE.Object3D
+  scene!: THREE.Scene
   renderer!: THREE.WebGLRenderer
   camera!: THREE.PerspectiveCamera
-  group!: THREE.Object3D
-  cube!: Cube
   clock!: THREE.Clock
+  clockRing!: ClockRing
+  backShapes!: BackShapes
 
   /**
    * mounted.
@@ -38,6 +39,7 @@ export default class BackGround extends Vue {
     this.size.height = window.innerHeight
 
     this.scene = new THREE.Scene()
+    this.scene.fog = new THREE.Fog(0xE5B6B7, 50, 200)
 
     this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true})
     const background = document.querySelector('div.background')
@@ -45,16 +47,14 @@ export default class BackGround extends Vue {
     this.renderer.setSize(this.size.width, this.size.height)
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100)
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 300)
     this.camera.position.set(0, 0, 100)
 
-    this.cube = new Cube()
-    this.cube.setPosition(28, 11.8, 4)
+    this.clockRing = new ClockRing()
+    this.scene.add(this.clockRing.getMesh())
 
-    this.group = new THREE.Group()
-    this.group.add(this.cube.getMesh())
-
-    this.scene.add(this.group)
+    this.backShapes = new BackShapes()
+    this.scene.add(this.backShapes.getMesh())
 
     this.clock = new THREE.Clock()
   }
@@ -65,8 +65,8 @@ export default class BackGround extends Vue {
   animate(): void {
     this.renderer.render(this.scene, this.camera)
     const elapsedTime = this.clock.getElapsedTime()
-    this.group.rotation.z = -elapsedTime/3
-    this.cube.setRotation(-elapsedTime * 1.8, -elapsedTime * 2, 0)
+    this.clockRing.animateFwd(elapsedTime)
+    this.backShapes.animateFwd()
     window.requestAnimationFrame(this.animate)
   }
 
