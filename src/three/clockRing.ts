@@ -10,6 +10,8 @@ export default class ClockRing {
   private sphere2: THREE.Object3D
   /** sphere3. */
   private sphere3: THREE.Object3D
+  /** forward move flag */
+  private forward = true;
 
   /**
    * Coustructor.
@@ -49,18 +51,67 @@ export default class ClockRing {
 
   }
 
-  getMesh() {
+  /**
+   * getter.
+   * @returns group
+   */
+  getMesh(): THREE.Object3D {
     return this.group
   }
 
-  animateFwd(elapsedTime: number): void {
-    this.group.rotation.z = -elapsedTime/3
-    this.sphere1.rotation.x = -elapsedTime * 1.8
-    this.sphere1.rotation.y = -elapsedTime * 2
-    this.sphere2.rotation.x = -elapsedTime * 1.6
-    this.sphere2.rotation.y = -elapsedTime * 1.8
-    this.sphere3.rotation.x = -elapsedTime * 1.4
-    this.sphere3.rotation.y = -elapsedTime * 1.6
+  /**
+   * controll move.
+   * @param time time
+   * @param scale scroll scale
+   */
+  animate(time: number, scale: number): void {
+    if(this.forward) {
+      this.clockwise(time)
+    } else {
+      this.counterClockwise(time, scale)
+    }
+  }
+
+  /**
+   * clock wise move.
+   * @param time time
+   */
+  clockwise(time: number): void {
+    this.group.rotation.z   -= time * .5
+    this.sphere1.rotation.x -= time * 3.5
+    this.sphere1.rotation.y -= time * 3
+    this.sphere2.rotation.x -= time * 2.5
+    this.sphere2.rotation.y -= time * 2
+    this.sphere3.rotation.x -= time * 1.5
+    this.sphere3.rotation.y -= time * 1
+  }
+
+  /**
+   * counter-clockwise move.
+   * @param scale scroll scale
+   */
+  counterClockwise(time: number, scale: number) {
+    this.group.rotation.z   += (time * .5) + (scale * .002)
+    this.sphere1.rotation.x += (time * 3.5) + (scale * .005)
+    this.sphere1.rotation.y += (time * 3) + (scale * .005)
+    this.sphere2.rotation.x += (time * 2.5) + (scale * .005)
+    this.sphere2.rotation.y += (time * 2) + (scale * .005)
+    this.sphere3.rotation.x += (time * 1.5) + (scale * .005)
+    this.sphere3.rotation.y += (time * 1) + (scale * .005)
+  }
+
+  /**
+   * set forward flag to true.
+   */
+  toForward(): void {
+    this.forward = true;
+  }
+
+  /**
+   * set forward flag to false.
+   */
+  toReverse(): void {
+    this.forward = false
   }
 
 }

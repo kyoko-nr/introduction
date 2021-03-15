@@ -21,13 +21,16 @@ export default class BackGround extends Vue {
   clock!: THREE.Clock
   clockRing!: ClockRing
   backShapes!: BackShapes
+  prevTime = Date.now()
+  prevScroll = 0
+  moveScale!: number
 
   /**
    * mounted.
    */
   mounted(): void {
     this.init()
-    this.animate()
+    this.draw()
     window.addEventListener('resize', this.onResize)
     window.addEventListener('scroll', this.onScroll)
   }
@@ -61,14 +64,19 @@ export default class BackGround extends Vue {
   }
 
   /**
-   * animate.
+   * render.
    */
-  animate(): void {
+  draw(): void {
     this.renderer.render(this.scene, this.camera)
-    const elapsedTime = this.clock.getElapsedTime()
-    this.clockRing.animateFwd(elapsedTime)
-    this.backShapes.animateFwd()
-    window.requestAnimationFrame(this.animate)
+
+    // clock ring animation.
+    const time = this.getTime()
+    this.clockRing.animate(time, this.moveScale)
+
+    // back shapes animation.
+    this.backShapes.animate(time, this.moveScale)
+
+    window.requestAnimationFrame(this.draw)
   }
 
   /**
@@ -83,8 +91,55 @@ export default class BackGround extends Vue {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }
 
+  /**
+   * constroll animation on scroll.
+   */
   onScroll(): void {
-    console.log(window.scrollY)
+    // calculate scroll amount
+    this.moveScale = Math.abs(window.scrollY - this.prevScroll)
+    this.prevScroll = window.scrollY
+    console.log("scrollY: " + window.scrollY)
+    console.log("prevSc: " + this.prevScroll)
+    console.log("moveScale: " + this.moveScale)
+    // this.moveScale = this.getScale(0.8)
+
+    if(window.scrollY < 300) {
+      if(this.backShapes.isReverse()){
+        this.backShapes.toForward()
+        this.clockRing.toForward()
+      }
+    } else {
+      if(this.backShapes.isForward()) {
+        this.backShapes.toReverse()
+        this.clockRing.toReverse()
+      }
+    }
+  }
+
+  /**
+   * get second.
+   * @returns sec
+   */
+  private getTime(): number {
+    const currentTime = Date.now()
+    const deltaTime = (currentTime - this.prevTime) / 1000
+    this.prevTime = currentTime
+    return deltaTime
+  }
+
+  /**
+   * get move scale with easing.
+   * reflects scroll amount.
+   * @param ease easing rate.
+   */
+  private getScale(ease: number): number {
+    console.log("scrollY: " + window.scrollY)
+    console.log("prev: " + this.prevScroll)
+    console.log("remain: " + Math.abs(window.scrollY - this.prevScroll))
+    const remain = Math.abs(window.scrollY - this.prevScroll)
+    const result = remain * ease
+    this.prevScroll = remain
+    return result
   }
 }
 </script>

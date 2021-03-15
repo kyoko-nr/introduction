@@ -49,11 +49,46 @@ export default class BackShapes {
   }
 
   /**
-   * animation forward.
+   * animate shapes.
    */
-  animateFwd(): void {
+  animate(time: number, scale: number): void {
     for(const shape of this.shapeAry) {
-      shape.animateFwd()
+      shape.animate(time, scale)
     }
   }
+
+  /**
+   * set move to reverse.
+   */
+  toReverse(): void {
+    for(const shape of this.shapeAry) {
+      shape.setReverseFlg()
+    }
+  }
+
+  /**
+   * set move to forward.
+   */
+  toForward(): void {
+    for(const shape of this.shapeAry) {
+      shape.setForwardFlg()
+    }
+  }
+
+  /**
+   * Returns if its in reverse move.
+   * @returns boolean
+   */
+  isReverse(): boolean {
+    return !this.shapeAry[0].isForward()
+  }
+
+  /**
+   * Returns if its in forward move.
+   * @returns boolean
+   */
+  isForward(): boolean {
+    return this.shapeAry[0].isForward()
+  }
+
 }
