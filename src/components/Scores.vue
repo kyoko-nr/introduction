@@ -32,8 +32,8 @@ export default class Scores extends Vue {}
 
 <style scoped>
 .card {
-  margin: 6rem 4rem;
-  padding: 8rem 4rem;
+  margin: 4rem 4rem;
+  padding: 6rem 4rem;
   background: rgba(255, 255, 255, 0.3);
 }
 .title-wrapper {
@@ -41,7 +41,7 @@ export default class Scores extends Vue {}
   padding-bottom: 2rem;
 }
 .title {
-  font-size: 2.0rem;
+  font-size: 1.8rem;
   letter-spacing: .8rem;
 }
 .title::after {
@@ -53,9 +53,9 @@ export default class Scores extends Vue {}
   transform: translateX(-50%);
   background-color: #000000;
   height: 1px;
-  width: 40rem;
+  width: 30rem;
 }
 .score-block-wrapper {
-  margin-top: 6rem;
+  margin-top: 4rem;
 }
 </style>

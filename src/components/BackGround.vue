@@ -23,7 +23,6 @@ export default class BackGround extends Vue {
   backShapes!: BackShapes
   prevTime = Date.now()
   prevScroll = 0
-  // moveScale!: number
   scroll = {
     prev: 0,
     dest: 0
@@ -74,7 +73,7 @@ export default class BackGround extends Vue {
     this.renderer.render(this.scene, this.camera)
 
     // for animation
-    const scale = this.getScale(0.6)
+    const scale = this.getScale(0.4)
     const time = this.getTime()
 
     // clock ring animation.
@@ -104,7 +103,7 @@ export default class BackGround extends Vue {
   onScroll(): void {
     this.scroll.dest = window.scrollY
 
-    if(window.scrollY < 300) {
+    if(window.scrollY < 200) {
       if(this.backShapes.isReverse()){
         this.backShapes.toForward()
         this.clockRing.toForward()

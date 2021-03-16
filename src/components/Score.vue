@@ -1,9 +1,9 @@
 <template>
   <div class="columns" v-bind:class='{left:content.left, right:content.right}'>
-    <div class="column is-3">
+    <div class="column is-2">
       <span class="score">{{ content.score }}</span>
     </div>
-    <div class="column is-9">
+    <div class="column is-10">
       <div class="score-content is-v-center">
         <div>
           <div class="score-title">
@@ -35,13 +35,13 @@ export default class Score extends Vue {
 
 <style scoped>
 .left {
-  padding-left: 6rem;
+  padding-left: 7rem;
 }
 .right {
-  padding-right: 6rem;
+  padding-right: 7rem;
 }
 .score {
-  font-size: 4rem;
+  font-size: 3rem;
   font-family: 'Abril Fatface', cursive;
 }
 .score-content {
@@ -51,9 +51,9 @@ export default class Score extends Vue {
 .score-title {
   display: flex;
   letter-spacing: .1rem;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   font-weight: bold;
-  line-height: 2.4rem;
+  line-height: 2.0rem;
 }
 .title-number {
   margin-right: 1rem;
@@ -63,6 +63,6 @@ export default class Score extends Vue {
 }
 .detail {
   margin-top: 1rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 </style>
