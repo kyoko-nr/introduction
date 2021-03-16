@@ -23,7 +23,11 @@ export default class BackGround extends Vue {
   backShapes!: BackShapes
   prevTime = Date.now()
   prevScroll = 0
-  moveScale!: number
+  // moveScale!: number
+  scroll = {
+    prev: 0,
+    dest: 0
+  }
 
   /**
    * mounted.
@@ -69,12 +73,15 @@ export default class BackGround extends Vue {
   draw(): void {
     this.renderer.render(this.scene, this.camera)
 
-    // clock ring animation.
+    // for animation
+    const scale = this.getScale(0.6)
     const time = this.getTime()
-    this.clockRing.animate(time, this.moveScale)
+
+    // clock ring animation.
+    this.clockRing.animate(time, scale)
 
     // back shapes animation.
-    this.backShapes.animate(time, this.moveScale)
+    this.backShapes.animate(time, scale)
 
     window.requestAnimationFrame(this.draw)
   }
@@ -95,13 +102,7 @@ export default class BackGround extends Vue {
    * constroll animation on scroll.
    */
   onScroll(): void {
-    // calculate scroll amount
-    this.moveScale = Math.abs(window.scrollY - this.prevScroll)
-    this.prevScroll = window.scrollY
-    console.log("scrollY: " + window.scrollY)
-    console.log("prevSc: " + this.prevScroll)
-    console.log("moveScale: " + this.moveScale)
-    // this.moveScale = this.getScale(0.8)
+    this.scroll.dest = window.scrollY
 
     if(window.scrollY < 300) {
       if(this.backShapes.isReverse()){
@@ -133,13 +134,9 @@ export default class BackGround extends Vue {
    * @param ease easing rate.
    */
   private getScale(ease: number): number {
-    console.log("scrollY: " + window.scrollY)
-    console.log("prev: " + this.prevScroll)
-    console.log("remain: " + Math.abs(window.scrollY - this.prevScroll))
-    const remain = Math.abs(window.scrollY - this.prevScroll)
-    const result = remain * ease
-    this.prevScroll = remain
-    return result
+    const result = (this.scroll.dest - this.scroll.prev) * ease
+    this.scroll.prev += result
+    return Math.abs(result)
   }
 }
 </script>

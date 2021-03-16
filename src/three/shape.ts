@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import gsap from 'gsap'
 
 /**
  * background objects abstract class.
@@ -45,13 +44,12 @@ export default abstract class Shape {
    * reverse animation.
    */
   public reverse(time: number, scale: number): void {
-    this.mesh.position.y += time * this.speed + ( this.speed * scale )
+    this.mesh.position.y += time + this.speed + ( this.speed * scale * .2)
     if(this.mesh.position.y > 100) {
       this.mesh.position.y = -100
     }
-    this.mesh.rotation.x -= (time * this.speed / 4) + ( this.speed / 6 * scale )
-    this.mesh.rotation.y -= (time * this.speed / 4) + ( this.speed / 6 * scale )
-    // TODO
+    this.mesh.rotation.x -= time + (this.speed * .3) + (this.speed * scale * .1)
+    this.mesh.rotation.y -= time + (this.speed * .2) + (this.speed * scale * .1)
   }
 
   /**
