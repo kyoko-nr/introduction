@@ -3,10 +3,10 @@
     <div class="card-content">
       <div class="content">
         <div class="title-wrapper">
-          <h2 class="title">{{ title }}</h2>
+          <h2 class="block-title">{{ title }}</h2>
         </div>
         <div class="score-block-wrapper" v-for="(content, index) in contents" :key="index">
-          <Score :content="content" :num="index + 1"/>
+          <Score :content="content" :num="index + 1" :group="title"/>
         </div>
       </div>
     </div>
@@ -31,30 +31,6 @@ export default class Scores extends Vue {}
 </script>
 
 <style scoped>
-.card {
-  margin: 4rem 4rem;
-  padding: 6rem 4rem;
-  background: rgba(255, 255, 255, 0.3);
-}
-.title-wrapper {
-  position: relative;
-  padding-bottom: 2rem;
-}
-.title {
-  font-size: 1.8rem;
-  letter-spacing: .8rem;
-}
-.title::after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #000000;
-  height: 1px;
-  width: 30rem;
-}
 .score-block-wrapper {
   margin-top: 4rem;
 }

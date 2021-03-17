@@ -1,5 +1,5 @@
 <template>
-  <div class="columns" v-bind:class='{left:content.left, right:content.right}'>
+  <div class="columns" :id='id' :class='{left:content.left, right:content.right}'>
     <div class="column is-2">
       <span class="score">{{ content.score }}</span>
     </div>
@@ -20,28 +20,56 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import Content from './content'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 
 @Options({
   props: {
     content: Content,
     num: Number,
+    group: String
   }
 })
 export default class Score extends Vue {
   content!: Content
   num!: number
+  group!: string
+  id = this.group.replace(/\s+/g, '') + this.num
+
+  mounted(): void {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const obj = document.getElementById(this.id)
+    if(obj) {
+      gsap.to(obj, {duration: 1, autoAlpha: 1,
+        scrollTrigger: {
+          trigger: obj,
+          start: 'top 80%',
+        }
+      })
+      gsap.to(obj, {duration: 1, x: 10,
+        scrollTrigger: {
+          trigger: obj,
+          start: 'top 80%',
+        }
+      })
+    }
+  }
 }
 </script>
 
 <style scoped>
+.columns {
+  opacity: 0;
+}
 .left {
-  padding-left: 7rem;
+  margin-left: 9rem;
 }
 .right {
-  padding-right: 7rem;
+  margin-right: 9rem;
 }
 .score {
-  font-size: 3rem;
+  font-size: 6rem;
   font-family: 'Abril Fatface', cursive;
 }
 .score-content {
@@ -63,6 +91,5 @@ export default class Score extends Vue {
 }
 .detail {
   margin-top: 1rem;
-  font-size: 0.8rem;
 }
 </style>

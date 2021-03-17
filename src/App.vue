@@ -5,6 +5,7 @@
       <Title/>
       <Scores title="my goals" :contents="mygoals" />
       <Scores title="assessments" :contents="assessments"/>
+      <Extra/>
     </div>
   </div>
 </template>
@@ -14,13 +15,15 @@ import { Options, Vue } from 'vue-class-component';
 import BackGround from './components/BackGround.vue';
 import Title from './components/Title.vue'
 import Scores from './components/Scores.vue'
+import Extra from './components/Extra.vue'
 import Content from './components/content'
 
 @Options({
   components: {
     BackGround,
     Title,
-    Scores
+    Scores,
+    Extra
   },
 })
 export default class App extends Vue {
@@ -93,5 +96,31 @@ html {
 p {
   letter-spacing: .1rem;
   line-height: 1.6rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+.content .card {
+  margin: 4rem 4rem;
+  padding: 6rem 4rem;
+  background: rgba(255, 255, 255, 0.3);
+}
+.title-wrapper {
+  position: relative;
+  padding-bottom: 2rem;
+}
+.block-title {
+  font-size: 1.8rem;
+  letter-spacing: .8rem;
+}
+.block-title::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000000;
+  height: 1px;
+  width: 30rem;
 }
 </style>
