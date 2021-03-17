@@ -1,6 +1,26 @@
 <template>
   <div id="title-wrapper" class="is-vh-center">
-    <h1 class="title">look back on<br>2020</h1>
+    <h1 class="title">
+      <div class="line">
+        <span class="move">l</span>
+        <span class="move">o</span>
+        <span class="move">o</span>
+        <span class="move">k</span>
+        <span class="space"></span>
+        <span class="move">b</span>
+        <span class="move">a</span>
+        <span class="move">c</span>
+        <span class="move">k</span>
+        <span class="space"></span>
+        <span class="move">o</span>
+        <span class="move">n</span>
+        </div>
+      <div class="line">
+        <span class="move">2</span>
+        <span class="move">0</span>
+        <span class="move">2</span>
+        <span class="move">0</span>
+      </div></h1>
   </div>
 </template>
 
@@ -15,10 +35,12 @@ export default class Title extends Vue {
       titleWrapper.style.height = window.innerHeight + "px"
     }
 
-    const title = document.querySelector('h1.title')
-    if(title) {
-      gsap.to(title, { duration: 1, delay: .5, y: 10})
-      gsap.to(title, { duration: 2, delay: .5,  autoAlpha: 1})
+    const letters = document.getElementsByClassName('move')
+    if(letters) {
+      for(const i in letters) {
+        gsap.to(letters[i], {duration: 1, delay: Number(i) * .16, autoAlpha: 1})
+        gsap.to(letters[i], {duration: 1, delay: Number(i) * .16, y: 10})
+      }
     }
   }
 }
@@ -29,8 +51,15 @@ export default class Title extends Vue {
   font-size: 2rem;
   letter-spacing: 1.2rem;
 }
-.title {
+.line {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+}
+.space {
+  margin-left: 1.6rem;
+}
+.move {
   opacity: 0;
-
 }
 </style>
