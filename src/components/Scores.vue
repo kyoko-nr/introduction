@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import Score from './Score.vue'
-import Content from './content'
+import Content from '../utils/content'
 
 @Options({
   components: {

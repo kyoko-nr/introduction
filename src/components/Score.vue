@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import Content from './content'
+import Content from '../utils/content'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
@@ -36,11 +36,15 @@ export default class Score extends Vue {
   group!: string
   id = this.group.replace(/\s+/g, '') + this.num
 
+  /**
+   * mouted.
+   */
   mounted(): void {
     gsap.registerPlugin(ScrollTrigger)
 
     const obj = document.getElementById(this.id)
     if(obj) {
+      // animation when object is in view
       gsap.to(obj, {duration: 1, autoAlpha: 1,
         scrollTrigger: {
           trigger: obj,
@@ -53,8 +57,19 @@ export default class Score extends Vue {
           start: 'top 80%',
         }
       })
+
+      // animation when the mouse enters the object
+      // obj.addEventListener('mouseenter', this.mouseEnter)
     }
+
   }
+
+  /**
+   * mouseEnter event.
+   */
+  // mouseEnter(): void {
+  //   console.log(event)
+  // }
 }
 </script>
 
@@ -71,6 +86,7 @@ export default class Score extends Vue {
 .score {
   font-size: 6rem;
   font-family: 'Abril Fatface', cursive;
+  /* color: #FDAC84; */
 }
 .score-content {
   text-align: left;

@@ -16,7 +16,7 @@ import BackGround from './components/BackGround.vue';
 import Title from './components/Title.vue'
 import Scores from './components/Scores.vue'
 import Extra from './components/Extra.vue'
-import Content from './components/content'
+import Content from './utils/content'
 
 @Options({
   components: {

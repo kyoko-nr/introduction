@@ -18,7 +18,6 @@ export default class BackGround extends Vue {
   scene!: THREE.Scene
   renderer!: THREE.WebGLRenderer
   camera!: THREE.PerspectiveCamera
-  clock!: THREE.Clock
   clockRing!: ClockRing
   backShapes!: BackShapes
   prevTime = Date.now()
@@ -62,8 +61,6 @@ export default class BackGround extends Vue {
 
     this.backShapes = new BackShapes()
     this.scene.add(this.backShapes.getMesh())
-
-    this.clock = new THREE.Clock()
   }
 
   /**

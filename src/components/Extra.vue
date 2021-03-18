@@ -6,13 +6,13 @@
           <h2 class="block-title">extra</h2>
         </div>
         <div class="columns">
-          <div class="column is-4">WebGL</div>
-          <div class="column is-4">Three.js</div>
-          <div class="column is-4">数学</div>
+          <div class="column is-4"><ExtraAnim :title="titles[0]" /></div>
+          <div class="column is-4"><ExtraAnim :title="titles[1]" /></div>
+          <div class="column is-4"><ExtraAnim :title="titles[2]" /></div>
         </div>
         <div class="columns">
-          <div class="column is-4">Vue.js</div>
-          <div class="column is-4">Typescript</div>
+          <div class="column is-4"><ExtraAnim :title="titles[3]" /></div>
+          <div class="column is-4"><ExtraAnim :title="titles[4]" /></div>
           <div class="column is-4"></div>
         </div>
         <div>
@@ -25,6 +25,18 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
-export default class Extra extends Vue {}
+import { Options, Vue } from 'vue-class-component'
+import ExtraAnim from './ExtraAnim.vue'
+
+@Options({
+  components: {
+    ExtraAnim,
+  }
+})
+export default class Extra extends Vue {
+  /**
+   * data.
+   */
+  titles = ["WebGL", "Three.js", "数学", "Vue.js", "Typescript"]
+}
 </script>
