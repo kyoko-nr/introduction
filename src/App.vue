@@ -5,7 +5,7 @@
       <Title/>
       <Scores title="my goals" :contents="mygoals" />
       <Scores title="assessments" :contents="assessments"/>
-      <Extra/>
+      <Extras />
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@ import { Options, Vue } from 'vue-class-component';
 import BackGround from './components/BackGround.vue';
 import Title from './components/Title.vue'
 import Scores from './components/Scores.vue'
-import Extra from './components/Extra.vue'
+import Extras from './components/Extras.vue'
 import Content from './utils/content'
 
 @Options({
@@ -23,7 +23,7 @@ import Content from './utils/content'
     BackGround,
     Title,
     Scores,
-    Extra
+    Extras
   },
 })
 export default class App extends Vue {

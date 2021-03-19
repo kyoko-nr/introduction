@@ -7,26 +7,41 @@ export default class Cone extends Shape {
   /** speed of rotate and fall. */
   speed: number
 
-  constructor() {
+  /**
+   * Constructor.
+   * @param size size
+   * @param color color
+   * @param position first position
+   * @param speed moving speed
+   */
+  constructor(size: number, color: THREE.Color, position: THREE.Vector3, speed: number) {
     super()
-    const size = Math.random() * 2 + 1
     const geom = new THREE.ConeBufferGeometry(size, size * 1.5, 6)
-    const mat = new THREE.MeshBasicMaterial({color: 0xCDFAF2, wireframe: true})
+    const mat = new THREE.MeshBasicMaterial({color: color, wireframe: true})
     this.mesh = new THREE.Mesh(geom, mat)
-    this.mesh.position.set(
-      Math.random() * 180 - 90,
-      Math.random() * 180 - 90,
-      Math.random() * 40 - 60)
-    this.speed = Math.random() * .2 + .1
+    this.mesh.position.copy(position)
+    this.speed = speed
   }
 
-  public animateFwd(): void {
-    this.mesh.position.y -= this.speed
-    if(this.mesh.position.y < -100) {
-      this.mesh.position.y = 100
-    }
-    this.mesh.rotation.x += this.speed / 4
-    this.mesh.rotation.z += this.speed / 4
+  /**
+   * rotate shape
+   * @param time second
+   */
+  public rotate(time: number) {
+    this.mesh.rotation.y += time + (this.speed * .3)
+    this.mesh.rotation.z += time + (this.speed * .2)
   }
+
+  // /**
+  //  * animate forward (override)
+  //  */
+  // public animateFwd(): void {
+  //   this.mesh.position.y -= this.speed
+  //   if(this.mesh.position.y < -100) {
+  //     this.mesh.position.y = 100
+  //   }
+  //   this.mesh.rotation.x += this.speed / 4
+  //   this.mesh.rotation.z += this.speed / 4
+  // }
 
 }

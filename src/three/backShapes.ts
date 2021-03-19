@@ -17,24 +17,38 @@ export default class BackShapes {
   constructor() {
     this.group = new THREE.Group()
 
+    const color = new THREE.Color(0xCDFAF2)
+
     // Cubes
     const cubeNum = 10
     for(let i = 0; i < cubeNum; i ++) {
-      const cube = new Cube()
+      const position = new THREE.Vector3(
+        Math.random() * 180 - 90,
+        Math.random() * 180 - 90,
+        Math.random() * 40 - 60)
+      const cube = new Cube(Math.random() * 2 + 1, color, position, Math.random() * .2 + .1)
       this.group.add(cube.getMesh())
       this.shapeAry.push(cube)
     }
     // Octahedrons
     const octNum = 10
     for(let i = 0; i < octNum; i ++) {
-      const octa = new Octa()
+      const position = new THREE.Vector3(
+        Math.random() * 180 - 90,
+        Math.random() * 180 - 90,
+        Math.random() * 40 - 60)
+      const octa = new Octa(Math.random() * 2.5 + 1, color, position, Math.random() * .2 + .1)
       this.group.add(octa.getMesh())
       this.shapeAry.push(octa)
     }
-    // Spheres
+    // Cones
     const coneNum = 10
     for(let i = 0; i < coneNum; i ++) {
-      const cone = new Cone()
+      const position = new THREE.Vector3(
+        Math.random() * 180 - 90,
+        Math.random() * 180 - 90,
+        Math.random() * 40 - 60)
+      const cone = new Cone(Math.random() * 2 + 1, color, position, Math.random() * .2 + .1)
       this.group.add(cone.getMesh())
       this.shapeAry.push(cone)
     }

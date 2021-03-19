@@ -7,17 +7,20 @@ export default class Octa extends Shape {
   /** speed of rotate and fall. */
   speed: number
 
-  constructor() {
+  /**
+   * Constructor.
+   * @param radius radius
+   * @param color color
+   * @param position first position
+   * @param speed moving speed
+   */
+  constructor(radius: number, color: THREE.Color, position: THREE.Vector3, speed: number) {
     super()
-    const radius = Math.random() * 2.5 + 1
     const geom = new THREE.OctahedronBufferGeometry(radius)
-    const mat = new THREE.MeshBasicMaterial({color: 0xCDFAF2, wireframe: true})
+    const mat = new THREE.MeshBasicMaterial({color: color, wireframe: true})
     this.mesh = new THREE.Mesh(geom, mat)
-    this.mesh.position.set(
-      Math.random() * 180 - 90,
-      Math.random() * 180 - 90,
-      Math.random() * 40 - 60)
-    this.speed = Math.random() * .2 + .1
+    this.mesh.position.copy(position)
+    this.speed = speed
   }
 
 }
