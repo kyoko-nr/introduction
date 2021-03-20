@@ -37,8 +37,8 @@ export default class App extends Vue {
     new ScoreContent("+4", "毎日英語の勉強をする", "ほぼ毎日勉強しました。", true),
     new ScoreContent("+5", "TOEICを受験する。900点以上を取得する", "12月に受験し、955点取得しました！文句なし。", false),
     new ScoreContent("+2", "英語を話す機会を作る", "たまに英語で独り言を言っています。", true),
-    new ScoreContent("+4", "Java以外のプログラミング言語に触れてみる", "主にPython、Javascript（ライブラリ含む）の勉強をしました。", true),
-    new ScoreContent("+2", "効率的で修正が容易なコードを書くことを心がける", "他の人（主に小川さん）が書いたコードを参考に、コードの書き方をアップデートするように心がけています。", false),
+    new ScoreContent("+4", "Java以外のプログラミング言語に触れてみる", "主にPython、Javascript（ライブラリ含む）の勉強をしました。", false),
+    new ScoreContent("+2", "効率的で修正が容易なコードを書くことを心がける", "他の人（主に小川さん）が書いたコードを参考に、コードの書き方をアップデートするように心がけています。", true),
   ]
   assessments = [
     new ScoreContent("+3", "チームワークを重視しチームとしての利益を優先している。利己的な行動をしていない。他のメンバーを尊重している。",
@@ -65,7 +65,8 @@ export default class App extends Vue {
   padding: 0;
 }
 html {
-  font-size: 62.5%;
+  /* font-size: 62.5%; */
+  font-size: 100%; /* デプロイするときはこっち */
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

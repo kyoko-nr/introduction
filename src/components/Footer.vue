@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p class="thank-you block-title">thank you</p>
+    <p class="thank-you">thank you</p>
     <p>this page is using</p>
     <ul class="technorogy">
       <li>Three.js</li>
@@ -23,6 +23,10 @@ footer {
   width: 100%;
   font-size: 1rem;
   padding: 4rem;
+}
+.thank-you {
+  font-size: 1.8rem;
+  letter-spacing: .8rem;
 }
 .technorogy {
   margin: 0;
