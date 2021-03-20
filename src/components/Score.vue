@@ -19,19 +19,19 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import Content from '../utils/content'
+import ScoreContent from '../dto/scoreContent'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
 @Options({
   props: {
-    content: Content,
+    content: ScoreContent,
     num: Number,
     group: String
   }
 })
 export default class Score extends Vue {
-  content!: Content
+  content!: ScoreContent
   num!: number
   group!: string
   id = this.group.replace(/\s+/g, '') + this.num
@@ -57,19 +57,9 @@ export default class Score extends Vue {
           start: 'top 80%',
         }
       })
-
-      // animation when the mouse enters the object
-      // obj.addEventListener('mouseenter', this.mouseEnter)
     }
-
   }
 
-  /**
-   * mouseEnter event.
-   */
-  // mouseEnter(): void {
-  //   console.log(event)
-  // }
 }
 </script>
 
@@ -86,7 +76,6 @@ export default class Score extends Vue {
 .score {
   font-size: 6rem;
   font-family: 'Abril Fatface', cursive;
-  /* color: #FDAC84; */
 }
 .score-content {
   text-align: left;

@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import Score from './Score.vue'
-import Content from '../utils/content'
+import ScoreContent from '../dto/scoreContent'
 
 @Options({
   components: {
@@ -24,7 +24,7 @@ import Content from '../utils/content'
   },
   props: {
     title: String,
-    contents: Array as () => Content[],
+    contents: Array as () => ScoreContent[],
   }
 })
 export default class Scores extends Vue {}

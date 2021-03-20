@@ -1,8 +1,9 @@
 <template>
-  <div class="wrapper">
+  <div :id=wrapId class="wrapper">
     <div :id=divId class="canvas"></div>
-    <div class="name">{{ title }}</div>
+    <div :id=nameId class="name">{{ content.title }}</div>
   </div>
+  <p :id=detailId>{{ content.detail }}</p>
 </template>
 
 <script lang="ts">
@@ -15,10 +16,13 @@ import Cone from '../three/cone'
 import Octa from '../three/octa'
 import Icosa from '../three/icosa'
 import IdGenerator from '../utils/idGenerator'
+import PairColor from '../utils/pairColor'
+import ScaleManager from '../utils/scaleManager'
+import Content from '../dto/content'
 
 @Options({
   props: {
-    title: String,
+    content: Content,
   }
 })
 export default class Extra extends Vue {
@@ -32,21 +36,33 @@ export default class Extra extends Vue {
   renderer!: THREE.WebGLRenderer
   camera!: THREE.PerspectiveCamera
   id = IdGenerator.generate()
+  idx = this.id - ((this.id / 5 | 0) * 5)
   divId = "extra" + this.id
+  wrapId = "wrapper" + this.id
+  nameId = "name" + this.id
+  detailId = "detail" + this.id
   object!: Shape
   requestAnim = 0
-  scale = 0
   animationOnGoing = false
+  scaleManager = new ScaleManager()
 
   /**
    * mounted.
    */
   mounted(): void {
     this.init()
-    const canvas = document.getElementById(this.divId)
-    if(canvas) {
-      canvas.addEventListener('mouseenter', this.mouseEnter)
-      canvas.addEventListener('mouseleave', this.mouseLeave)
+    const wrapper = document.getElementById(this.wrapId)
+    if(wrapper) {
+      wrapper.addEventListener('mouseenter', this.mouseEnter)
+      wrapper.addEventListener('mouseleave', this.mouseLeave)
+    }
+    const name = document.getElementById(this.nameId)
+    if(name) {
+      name.style.color = PairColor.getDarkStr(this.idx)
+    }
+    const detail = document.getElementById(this.detailId)
+    if(detail) {
+      detail.style.color = PairColor.getDarkStr(this.idx)
     }
   }
 
@@ -73,15 +89,14 @@ export default class Extra extends Vue {
     this.object = this.getObject()
     this.scene.add(this.object.getMesh())
 
-    // this.renderer.render(this.scene, this.camera)
     this.draw()
-
   }
 
   /**
    * Mouse enter event.
    */
   mouseEnter(): void {
+    this.scaleManager.setDestination(.1)
     this.animationOnGoing = true
     this.draw()
   }
@@ -90,6 +105,7 @@ export default class Extra extends Vue {
    * Mouse leave event.
    */
   mouseLeave(): void {
+    this.scaleManager.setDestination(0)
     this.animationOnGoing = false
   }
 
@@ -99,59 +115,44 @@ export default class Extra extends Vue {
   draw(): void {
     this.renderer.render(this.scene, this.camera)
 
-    // let test = 0
-
-    // scaleの値を増減させる
     if(this.animationOnGoing) {
-      if(this.scale < .05) {
-        this.scale += .0005
-        // test = this.getScale()
-      }
+      this.scaleManager.increaseScale(0.1)
     } else {
-      if(this.scale > 0) {
-        this.scale -= .005
-      }
+      this.scaleManager.decreaseScale(0.1)
     }
 
-    // scale が0になったらanimationframeをcancelする
-    if(this.scale < 0) {
-      this.scale = 0
+    // Cancel animation
+    if(this.scaleManager.getCurrent() < 0) {
       cancelAnimationFrame(this.requestAnim)
     }
 
-    // objectを回転させる
-    if(this.scale > 0) {
-      this.object.rotate(this.scale)
-      this.requestAnim = requestAnimationFrame(this.draw)
+    // Animate
+    if(this.scaleManager.getCurrent() > 0) {
+    this.object.rotate(this.scaleManager.getCurrent())
+    this.requestAnim = requestAnimationFrame(this.draw)
     }
-  }
 
-  // private getScale() {
-  //   this.scale += .0005
-  //   const result = (0.5 - this.scale) * 0.4
-  //   this.scale = result
-  //   return result
-  // }
+  }
 
   /**
    * get object.
    */
   private getObject(): Shape {
-    const idx = this.id - ((this.id / 5 | 0) * 5)
     const position = new THREE.Vector3(0, 0, 10)
-    switch(idx) {
+    const color = PairColor.getLightThree(this.idx)
+    switch(this.idx) {
       case 0:
-        return new Sphere(24, new THREE.Color(0xFDAF89), position, .2)
+        return new Sphere(24, color, position, 0)
       case 1:
-        return new Cube(34, new THREE.Color(0xABCEFD), position, .2)
+        return new Cube(34, color, position, 0)
       case 2:
-        return new Cone(28, new THREE.Color(0xADA6B3), position, .2)
+        return new Cone(28, color, position, 0)
       case 3:
-        return new Octa(30, new THREE.Color(0xE3FBE2), position, .2)
+        return new Octa(30, color, position, 0)
       case 4:
-        return new Icosa(30, new THREE.Color(0xEDE2C4), position, .2)
+        return new Icosa(30, color, position, 0)
       default:
-        return new Sphere(24, new THREE.Color(0xFDAF89), position, .2)
+        return new Sphere(24, color, position, 0)
     }
   }
 
@@ -161,8 +162,20 @@ export default class Extra extends Vue {
 <style scoped>
 .wrapper {
   height: 12rem;
+  display: flex;
+  position: relative;
 }
 .canvas {
   height: 100%;
+  width: 100%;
+  margin: 0;
+}
+.name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 </style>

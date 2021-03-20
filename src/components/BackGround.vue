@@ -8,6 +8,7 @@ import * as THREE from 'three'
 import ClockRing from '../three/clockRing'
 import BackShapes from '../three/backShapes'
 import TimeKeeper from '../utils/timeKeeper'
+import ScaleManager from '../utils/scaleManager'
 
 export default class BackGround extends Vue {
   /**
@@ -21,11 +22,8 @@ export default class BackGround extends Vue {
   camera!: THREE.PerspectiveCamera
   clockRing!: ClockRing
   backShapes!: BackShapes
-  scroll = {
-    prev: 0,
-    dest: 0
-  }
   timeKeeper = new TimeKeeper()
+  scaleManager = new ScaleManager()
 
   /**
    * mounted.
@@ -70,7 +68,7 @@ export default class BackGround extends Vue {
     this.renderer.render(this.scene, this.camera)
 
     // for animation
-    const scale = this.getScale(0.4)
+    const scale = this.scaleManager.getScrollScale(0.4)
     const time = this.timeKeeper.getTime()
 
     // clock ring animation.
@@ -98,7 +96,7 @@ export default class BackGround extends Vue {
    * constroll animation on scroll.
    */
   onScroll(): void {
-    this.scroll.dest = window.scrollY
+    this.scaleManager.setDestination(window.scrollY)
 
     if(window.scrollY < 200) {
       if(this.backShapes.isReverse()){
@@ -113,15 +111,6 @@ export default class BackGround extends Vue {
     }
   }
 
-  /**
-   * get scroll scale with easing.
-   * @param ease easing rate.
-   */
-  private getScale(ease: number): number {
-    const result = (this.scroll.dest - this.scroll.prev) * ease
-    this.scroll.prev += result
-    return Math.abs(result)
-  }
 }
 </script>
 
