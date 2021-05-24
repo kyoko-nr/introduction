@@ -3,9 +3,8 @@
     <BackGround/>
     <div id="content" class="content">
       <Title/>
-      <Scores title="my goals" :contents="mygoals" />
-      <Scores title="assessments" :contents="assessments"/>
-      <Extras />
+      <Skills title="skills" :skillContents="skillContents" />
+      <Interests />
       <Footer />
     </div>
   </div>
@@ -15,17 +14,17 @@
 import { Options, Vue } from 'vue-class-component';
 import BackGround from './components/BackGround.vue';
 import Title from './components/Title.vue'
-import Scores from './components/Scores.vue'
-import Extras from './components/Extras.vue'
+import Skills from './components/Skills.vue'
+import Interests from './components/Interests.vue'
 import Footer from './components/Footer.vue'
-import ScoreContent from './dto/scoreContent'
+import SkillContent from './libs/skillContent'
 
 @Options({
   components: {
     BackGround,
     Title,
-    Scores,
-    Extras,
+    Skills,
+    Interests,
     Footer
   },
 })
@@ -33,26 +32,11 @@ export default class App extends Vue {
   /**
    * data.
    */
-  mygoals = [
-    new ScoreContent("+4", "毎日英語の勉強をする", "ほぼ毎日勉強しました。", true),
-    new ScoreContent("+5", "TOEICを受験する。900点以上を取得する", "12月に受験し、955点取得しました！文句なし。", false),
-    new ScoreContent("+2", "英語を話す機会を作る", "たまに英語で独り言を言っています。", true),
-    new ScoreContent("+4", "Java以外のプログラミング言語に触れてみる", "主にPython、Javascript（ライブラリ含む）の勉強をしました。", false),
-    new ScoreContent("+2", "効率的で修正が容易なコードを書くことを心がける", "他の人（主に小川さん）が書いたコードを参考に、コードの書き方をアップデートするように心がけています。", true),
-  ]
-  assessments = [
-    new ScoreContent("+3", "チームワークを重視しチームとしての利益を優先している。利己的な行動をしていない。他のメンバーを尊重している。",
-      "技術的にできることは多くはないが、自分のタスクを早めに終わらせて他の人のタスクを担当できる時間を作ったり、RAIDENチームの疑問等は自分のできる範囲で早めにレスポンスをするように心掛けています。", true),
-    new ScoreContent("+5", "自身の成長を意識し、努力している。明確な目標を持って取り組んでいる。技術的なチャレンジに熱心である。",
-      "自分の中での目標は明確に決め、日常的に少しずつ努力を重ねている。やりたいと思ったことは諦めずにチャレンジし続けています。", false),
-    new ScoreContent("+4", "メンバーの育成に取り組み、成果を上げている。",
-      "入沢さんの教育のためにアプリを作成した。この取り組みにより入沢さんの理解度は深まったと思います。", true),
-    new ScoreContent("+2", "お客様の信頼を得ており、継続的に利益を上げている。",
-      "信頼は失ってはいないとは思います。個人的には自分の役割以上のことをやっているつもりではあるが、お客さんがどう思っているかは不明。", false),
-    new ScoreContent("+1", "社内業務に積極的に取り組んでいる。業務改善に熱心である。",
-      "VISITOの取り組みを行なっているが、進捗が遅いのが心残り。", true),
-    new ScoreContent("+2", "報連相が適切である。", "不適切ではないと思います。", false),
-    new ScoreContent("+3", "勤務姿勢や態度が良好である。", "良好です。", true),
+  skillContents = [
+    new SkillContent("1", "JavaScript/jQuery/HTML/CSS (開発経験:約2年)", "現在在籍してるプロジェクトでは、フロントエンドは主にこれらの言語を使用しています。", true),
+    new SkillContent("2", "Vue.js/Nuxt.js (開発経験:約1年)", "以前在籍していたプロジェクトではVue.js、Nuxt.jsを使用していました。", false),
+    new SkillContent("3", "Java/SpringBoot (開発経験:約3年)", "サーバーサイドでは、SpringBootフレームワークを使用したJavaでの開発を行なっています。", true),
+    new SkillContent("4", "TypeScript/Python", "新しいスキルを身につけるため、社内の有志によるTypeScriptやPythonでのアプリ開発も行なっています。", false),
   ]
 }
 </script>

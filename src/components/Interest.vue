@@ -18,14 +18,14 @@ import Icosa from '../three/icosa'
 import IdGenerator from '../utils/idGenerator'
 import PairColor from '../utils/pairColor'
 import ScaleManager from '../utils/scaleManager'
-import Content from '../dto/content'
+import Content from '../libs/content'
 
 @Options({
   props: {
     content: Content,
   }
 })
-export default class Extra extends Vue {
+export default class Interest extends Vue {
   /**
    * data.
    * initialize members on init() method because

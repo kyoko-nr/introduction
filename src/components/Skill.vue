@@ -1,16 +1,15 @@
 <template>
-  <div class="columns" :id='id' :class='{left:content.left, right:content.right}'>
+  <div class="columns" :id='id' :class='{left:skillContent.left, right:skillContent.right}'>
     <div class="column is-2">
-      <span class="score">{{ content.score }}</span>
+      <span class="score">{{ skillContent.num }}</span>
     </div>
     <div class="column is-10">
       <div class="score-content is-v-center">
         <div>
           <div class="score-title">
-            <span class="title-number">{{ ('00' + num).slice(-2) }}</span>
-            <span>{{ content.title }}</span>
+            <span>{{ skillContent.title }}</span>
           </div>
-          <p class="detail">{{ content.detail }}</p>
+          <p class="detail">{{ skillContent.detail }}</p>
         </div>
       </div>
     </div>
@@ -19,19 +18,19 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import ScoreContent from '../dto/scoreContent'
+import SkillContent from '../libs/skillContent'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
 @Options({
   props: {
-    content: ScoreContent,
+    skillContent: SkillContent,
     num: Number,
     group: String
   }
 })
-export default class Score extends Vue {
-  content!: ScoreContent
+export default class Skill extends Vue {
+  skillContent!: SkillContent
   num!: number
   group!: string
   id = this.group.replace(/\s+/g, '') + this.num

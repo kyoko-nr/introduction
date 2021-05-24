@@ -5,8 +5,8 @@
         <div class="title-wrapper">
           <h2 class="block-title">{{ title }}</h2>
         </div>
-        <div class="score-block-wrapper" v-for="(content, index) in contents" :key="index">
-          <Score :content="content" :num="index + 1" :group="title"/>
+        <div class="score-block-wrapper" v-for="(skillContent, index) in skillContents" :key="index">
+          <Skill :skillContent="skillContent" :num="index + 1" :group="title"/>
         </div>
       </div>
     </div>
@@ -15,19 +15,19 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import Score from './Score.vue'
-import ScoreContent from '../dto/scoreContent'
+import Skill from './Skill.vue'
+import SkillContent from '../libs/skillContent'
 
 @Options({
   components: {
-    Score,
+    Skill,
   },
   props: {
     title: String,
-    contents: Array as () => ScoreContent[],
+    skillContents: Array as () => SkillContent[],
   }
 })
-export default class Scores extends Vue {}
+export default class Skills extends Vue {}
 </script>
 
 <style scoped>
