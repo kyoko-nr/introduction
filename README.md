@@ -26,4 +26,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## Herokuでアプリケーションが確認できます
 
 ### Heroku URL
-https://look-back-on-2020.herokuapp.com/
+https://self-introduction-kyknr.herokuapp.com/
