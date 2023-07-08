@@ -7,7 +7,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "format": "yarn run __typecheck && yarn run __eslint-fix && yarn run __stylelint-fix && yarn run __prettier-write",
+    "format": "yarn run __typecheck && yarn run __stylelint-fix && yarn run __prettier-write && yarn run __eslint-fix",
     "__typecheck": "yarn nuxi typecheck",
     "__eslint-fix": "eslint --ext .ts,.vue . --fix",
     "__stylelint-fix": "stylelint --fix '**/*.{vue,scss,css}'",
