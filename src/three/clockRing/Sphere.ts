@@ -19,6 +19,6 @@ export default class Sphere extends THREE.Object3D {
     });
     this._mesh = new THREE.Mesh(this._geom, this._mat);
     this.add(this._mesh);
-    this.position.add(pos);
+    this.position.copy(pos);
   }
 }

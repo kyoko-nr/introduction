@@ -11,6 +11,6 @@ export default class Ring extends THREE.Object3D {
     this._mat = new THREE.MeshBasicMaterial({ color: 0xffffff });
     this._mesh = new THREE.Mesh(this._geom, this._mat);
     this.add(this._mesh);
-    this.position.add(pos);
+    this.position.copy(pos);
   }
 }
