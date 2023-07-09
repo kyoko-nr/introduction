@@ -8,7 +8,7 @@ export default class ThreeApp {
   private readonly _renderer: THREE.WebGLRenderer;
   private readonly _camera: THREE.PerspectiveCamera;
   private readonly _clockRing: WireClock;
-  // private readonly _floats: Floats;
+  private readonly _floats: Floats;
   private readonly _clock = new THREE.Clock();
 
   constructor() {
@@ -31,13 +31,15 @@ export default class ThreeApp {
     this._camera.position.set(0, 0, 100);
 
     this._clockRing = new WireClock();
-    // this._floats = new Floats();
+    this._floats = new Floats();
 
-    this._scene.add(this._clockRing);
+    this._scene.add(this._clockRing, this._floats);
 
     this._renderer.setAnimationLoop(() => {
       this._renderer.render(this._scene, this._camera);
-      this._clockRing.animate(this._clock.getDelta());
+      const delta = this._clock.getDelta();
+      this._clockRing.animate(delta);
+      this._floats.animate(delta, 0);
     });
   }
 

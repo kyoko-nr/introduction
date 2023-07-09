@@ -1,17 +1,20 @@
-import * as THREE from "three";
+import { Group, Color } from "three";
 import Shape from "./Shape";
 import Cube from "./Cube";
 import Octa from "./Octa";
 import Cone from "./Cone";
-import { generateRandomPos } from "./utils/generateRandomPos";
-import { generateRandomSpeed } from "./utils/generateRandomSpeed";
+import { generateRandomPos } from "./logic/generateRandomPos";
+import { randomBetween } from "@/src/utils/randomBetween";
 
 const CUBE_NUM = 10;
 const OCTA_NUM = 10;
 const CONE_NUM = 10;
-const COLOR = new THREE.Color(0xcdfaf2);
+const COLOR = new Color(0xcdfaf2);
 
-export default class Floats extends THREE.Group {
+/**
+ * Floating shapes
+ */
+export default class Floats extends Group {
   private readonly _shapes: Shape[] = [];
 
   constructor() {
@@ -20,10 +23,10 @@ export default class Floats extends THREE.Group {
     // Cubes
     for (let i = 0; i < CUBE_NUM; i++) {
       const cube = new Cube(
-        Math.random() * 2 + 1,
+        randomBetween(1, 3),
         COLOR,
         generateRandomPos(),
-        generateRandomSpeed(),
+        randomBetween(3, 10),
       );
       this._shapes.push(cube);
     }
@@ -31,10 +34,10 @@ export default class Floats extends THREE.Group {
     // Octahedrons
     for (let i = 0; i < OCTA_NUM; i++) {
       const octa = new Octa(
-        Math.random() * 2.5 + 1,
+        randomBetween(1, 2.5),
         COLOR,
         generateRandomPos(),
-        generateRandomSpeed(),
+        randomBetween(3, 10),
       );
       this._shapes.push(octa);
     }
@@ -42,10 +45,10 @@ export default class Floats extends THREE.Group {
     // Cones
     for (let i = 0; i < CONE_NUM; i++) {
       const cone = new Cone(
-        Math.random() * 2 + 1,
+        randomBetween(1, 3),
         COLOR,
         generateRandomPos(),
-        generateRandomSpeed(),
+        randomBetween(3, 10),
       );
       this._shapes.push(cone);
     }
@@ -56,28 +59,22 @@ export default class Floats extends THREE.Group {
   /**
    * animate shapes.
    */
-  animate(time: number, scale: number): void {
-    for (const shape of this._shapes) {
-      shape.animate(time, scale);
-    }
+  animate(time: number, scale: number) {
+    this._shapes.forEach((s) => s.animate(time, scale));
   }
 
   /**
    * set move to reverse.
    */
-  toReverse(): void {
-    for (const shape of this._shapes) {
-      shape.setReverseFlg();
-    }
+  toReverse() {
+    this._shapes.forEach((s) => s.setReverseFlg());
   }
 
   /**
    * set move to forward.
    */
-  toForward(): void {
-    for (const shape of this._shapes) {
-      shape.setForwardFlg();
-    }
+  toForward() {
+    this._shapes.forEach((s) => s.setForwardFlg());
   }
 
   /**

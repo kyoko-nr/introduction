@@ -1,9 +1,9 @@
-import * as THREE from "three";
+import { Mesh } from "three";
 
 /**
  * Abstract class of floating object
  */
-export default abstract class Shape extends THREE.Object3D {
+export default abstract class Shape extends Mesh {
   abstract readonly _speed: number;
   private _forward = true;
 
@@ -13,18 +13,18 @@ export default abstract class Shape extends THREE.Object3D {
    * @param scale speed scale
    */
   public animate(time: number, scale: number): void {
-    if (this._forward) {
-      this.fall(time);
-    } else {
-      this.reverse(time, scale);
-    }
+    // if (this._forward) {
+    this.fall(time);
+    // } else {
+    // this.reverse(time, scale);
+    // }
   }
 
   /**
    * fall animation.
    * @param time second
    */
-  public fall(time: number): void {
+  fall(time: number) {
     this.position.y -= time * this._speed;
     if (this.position.y < -100) {
       this.position.y = 100;
@@ -37,8 +37,8 @@ export default abstract class Shape extends THREE.Object3D {
    * @param time second
    */
   public rotate(time: number) {
-    this.rotation.x += time * this._speed;
-    this.rotation.y += time * this._speed;
+    this.rotation.x += time * this._speed * 0.1;
+    this.rotation.y += time * this._speed * 0.3;
   }
 
   /**
