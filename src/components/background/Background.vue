@@ -1,8 +1,17 @@
 <template>
-  <div class="background"></div>
+  <div class="background" ref="bgRef"></div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ThreeApp from "@/src/three/ThreeApp";
+import { ref } from "vue";
+const bgRef = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+  const threeApp = new ThreeApp();
+  bgRef.value?.append(threeApp.getDom());
+});
+</script>
 
 <style lang="scss" scoped>
 .background {

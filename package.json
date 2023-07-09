@@ -19,6 +19,7 @@
     "@nuxtjs/eslint-module": "4.1.0",
     "@nuxtjs/stylelint-module": "5.1.0",
     "@types/node": "18",
+    "@types/three": "0.153.0",
     "eslint": "8.44.0",
     "eslint-config-prettier": "8.8.0",
     "nuxt": "3.6.2",
