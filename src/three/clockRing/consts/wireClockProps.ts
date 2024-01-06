@@ -10,16 +10,22 @@ export const RING_PROPS: ClockRingProps[] = [
     innerRadius: 31.9,
     outerRadius: 32,
     pos: new Vector3(-0.3, 1.4, 2),
+    xSpeed: 0.41,
+    ySpeed: 0.38,
   },
   {
     innerRadius: 30.9,
     outerRadius: 31,
     pos: new Vector3(1, 0, 2),
+    xSpeed: 0.22,
+    ySpeed: 0.59,
   },
   {
     innerRadius: 29.9,
     outerRadius: 30,
     pos: new Vector3(0.7, 4.6, 2),
+    xSpeed: 0.45,
+    ySpeed: 0.3,
   },
 ];
 

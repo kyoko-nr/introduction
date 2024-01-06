@@ -22,15 +22,8 @@ export default class WireClock extends Group {
   }
 
   animate(time: number) {
-    this.clockwise(time);
-  }
-
-  /**
-   * clock wise move.
-   * @param time time
-   */
-  clockwise(time: number): void {
     this.rotation.z -= time * this._rotateSpeed;
     this._spheres.forEach((s) => s.animate(time));
+    this._rings.forEach((r) => r.animate(time));
   }
 }
